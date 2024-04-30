@@ -1,0 +1,12 @@
+venv
+.venv
+env
+.env
+migrations
+db.sqlite3
+README.md
+.idea
+media
+staticfiles
+__pycache__
+images
