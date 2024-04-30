@@ -9,8 +9,9 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
-
 from pathlib import Path
+
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -39,9 +40,16 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     # django apps
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
     'jazzmin',
     'rest_framework_simplejwt',
     'rest_framework',
+    'corsheaders',
+
+    
+    
     
     # my apps
     'users.apps.UsersConfig',
@@ -49,6 +57,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -56,9 +65,17 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'allauth.account.middleware.AccountMiddleware',  # Add this line if missing
+    'corsheaders.middleware.CorsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'Conf.urls'
+
+# AUTHENTICATION_BACKENDS = [
+#     'django.contrib.auth.backends.ModelBackend',
+#     'allauth.account.auth_backends.AuthenticationBackend',
+#     'allauth.socialaccount.auth_backends.AuthenticationBackend',  # Include this line
+# ]
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
@@ -154,22 +171,9 @@ JAZZMIN_SETTINGS = {
     "site_logo": "Бабочка.jpg",
     "welcome_sign": "Xush Kelibsiz",
     "copyright": "Archaeology",
-    # "search_model": ["app.model_name"],
 
     "topmenu_links": [
         {"model": "auth.User"},
-        # {"model": "auth.Group"},
-
-        # {"name": "Foydali Havolalar", "url": "foydali_havolalar"},
-        # {"name": "Hikmatli Sozlar", "url": "hikmatli_sozlar"},
-        # {"name": "Hujjatlar", "url": "hujjatlar"},
-        # {"name": "Ishtirokchilar", "url": "ishtirokchilar"},
-        # {"name": "Jadidlar", "url": "jadidlar"},
-        # {"name": "Manbalar", "url": "manbalar"},
-        # {"name": "Sahifalar", "url": "sahifalar"},
-        # {"name": "Slayder", "url": "slayder"},
-        # {"name": "Tadbirlar", "url": "tadbirlar"},
-        # {"name": "Tanlovlar", "url": "tanlovlar"},
     ],
 
     "navigation_expanded": False,
@@ -180,13 +184,7 @@ JAZZMIN_SETTINGS = {
 
     "changeform_format": "collapsible",
 
-    # "usermenu_links": [
-    # {"name": "Profile", "url": "profile"},
-    # {"name": "Logout", "url": "logout"},
-    # {"name": "Login", "url": "login"},
-    # {"name": "Signup", "url": "signup"},
-
-    #     ]
+   
 
 }
 
@@ -225,6 +223,7 @@ JAZZMIN_UI_TWEAKS = {
 
 AUTH_USER_MODEL = "users.CustomUser"
 
+CROS_ORIGIN_ALLOW_ALL = True
 
 
 
