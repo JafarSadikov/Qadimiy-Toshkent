@@ -10,9 +10,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 from pathlib import Path
-from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
-from allauth.socialaccount.providers.oauth2.client import OAuth2Client
-from dj_rest_auth.registration.views import SocialLoginView
 
 
 
@@ -44,10 +41,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'archaeology.apps.ArchaeologyConfig',
     
     # django apps
-    "allauth.socialaccount",
-    "allauth.socialaccount.providers.google",
+
     'allauth',
     'allauth.account',
     'rest_framework_simplejwt',
@@ -97,11 +94,6 @@ SOCIALACCOUNT_PROVIDERS = {
 SOCIALACCOUNT_ADAPTER = 'allauth.socialaccount.adapter.DefaultSocialAccountAdapter'
 
 # Custom Google Login View
-class GoogleLoginView(SocialLoginView):
-    adapter_class = GoogleOAuth2Adapter
-    callback_url = GOOGLE_REDIRECT_URL
-    client_class = OAuth2Client
-
 
 ROOT_URLCONF = 'Conf.urls'
 
