@@ -10,6 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 from pathlib import Path
+from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
+from allauth.socialaccount.providers.oauth2.client import OAuth2Client
+from dj_rest_auth.registration.views import SocialLoginView
 
 
 
@@ -32,6 +35,9 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
+    
+    #local
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,10 +46,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     # django apps
+    "allauth.socialaccount",
+    "allauth.socialaccount.providers.google",
     'allauth',
     'allauth.account',
-    'allauth.socialaccount',
-    'jazzmin',
     'rest_framework_simplejwt',
     'rest_framework',
     'corsheaders',
@@ -68,6 +74,34 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
 
 ]
+
+
+GOOGLE_REDIRECT_URL = 'https://example.com/accounts/google/login/callback/'  # or your actual callback URL
+
+REST_AUTH_REGISTER_SERIALIZERS = {
+    'LOGIN_SERIALIZER': 'path.to.your.custom.LoginSerializer',
+    'REGISTER_SERIALIZER': 'path.to.your.custom.RegisterSerializer',
+}
+
+# Google OAuth2 adapter configuration
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'APP': {
+            'client_id': 'your_google_client_id',
+            'secret': 'your_google_client_secret',
+            'key': ''
+        }
+    }
+}
+
+SOCIALACCOUNT_ADAPTER = 'allauth.socialaccount.adapter.DefaultSocialAccountAdapter'
+
+# Custom Google Login View
+class GoogleLoginView(SocialLoginView):
+    adapter_class = GoogleOAuth2Adapter
+    callback_url = GOOGLE_REDIRECT_URL
+    client_class = OAuth2Client
+
 
 ROOT_URLCONF = 'Conf.urls'
 
