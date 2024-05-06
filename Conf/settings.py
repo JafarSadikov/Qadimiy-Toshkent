@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 from pathlib import Path
-
+from django.utils.translation import gettext_lazy as _
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -32,25 +32,26 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
+    
+    #local
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'archaeology.apps.ArchaeologyConfig',
     
     # django apps
+
     'allauth',
     'allauth.account',
-    'allauth.socialaccount',
-    'jazzmin',
     'rest_framework_simplejwt',
     'rest_framework',
     'corsheaders',
+    "modeltranslation",
 
-    
-    
-    
     # my apps
     'users.apps.UsersConfig',
 ]
@@ -59,6 +60,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -68,6 +70,29 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
 
 ]
+
+
+GOOGLE_REDIRECT_URL = 'https://example.com/accounts/google/login/callback/'  # or your actual callback URL
+
+REST_AUTH_REGISTER_SERIALIZERS = {
+    'LOGIN_SERIALIZER': 'path.to.your.custom.LoginSerializer',
+    'REGISTER_SERIALIZER': 'path.to.your.custom.RegisterSerializer',
+}
+
+# Google OAuth2 adapter configuration
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'APP': {
+            'client_id': 'your_google_client_id',
+            'secret': 'your_google_client_secret',
+            'key': ''
+        }
+    }
+}
+
+SOCIALACCOUNT_ADAPTER = 'allauth.socialaccount.adapter.DefaultSocialAccountAdapter'
+
+# Custom Google Login View
 
 ROOT_URLCONF = 'Conf.urls'
 
@@ -145,7 +170,17 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en'
+
+LANGUAGES = (
+    ('en', _('English')),
+    ('ru', _('Russian')),
+
+)
+
+LOCALE_PATHS = [
+    BASE_DIR / 'locale/',
+]
 
 TIME_ZONE = 'UTC'
 
