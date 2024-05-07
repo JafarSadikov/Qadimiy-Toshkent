@@ -9,8 +9,9 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
+import os
 from pathlib import Path
-
+from django.utils.translation import gettext_lazy as _
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -50,6 +51,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'rest_framework',
     'corsheaders',
+    'ckeditor',
 
     
     
@@ -171,9 +173,15 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'UTC'
+LANGUAGE_CODE = 'en'
+#
+# LANGUAGES = (
+#     ('ru', _('Russian')),
+#     ('uz', _('Uzbek')),
+#     ('en', _('English')),
+# )
+#
+# TIME_ZONE = 'Asia/Tashkent'
 
 USE_I18N = True
 
@@ -255,4 +263,18 @@ CROS_ORIGIN_ALLOW_ALL = True
 
 #? pip install phonenumbers
 #? pip install django-phonenumber-field  KERAK BOLIB QOLADI!
+
+
+STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+
+    },
+}
 

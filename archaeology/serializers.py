@@ -11,19 +11,31 @@ class RegionSerializers(serializers.ModelSerializer):
 class ArchaeologySerializers(serializers.ModelSerializer):
     class Meta:
         model = Archaeology
-        fields = ('id', 'title', 'like', 'region', 'password_image', 'create', 'update')
+        fields = ['id', 'title', 'context', 'region', 'password_image', 'create', 'update']
+
+
+class ArchaeologyLikeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Archaeology
+        fields = ['id', 'like',]
 
 
 class ItemsSerializers(serializers.ModelSerializer):
     class Meta:
         model = Items
-        fields = ('id', 'title', 'like', 'password_image', 'create', 'update')
+        fields = ('id', 'title', 'context', 'password_image', 'create', 'update')
+
+
+class ItemsLikeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Items
+        fields = ['id', 'like',]
 
 
 class NewsSerializers(serializers.ModelSerializer):
     class Meta:
         model = News
-        fields = ('id', 'title', 'descriptions', 'create', 'update')
+        fields = ('id', 'title', 'context', 'create', 'update')
 
 
 class VideoSerializers(serializers.ModelSerializer):

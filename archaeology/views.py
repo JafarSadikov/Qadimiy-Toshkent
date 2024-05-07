@@ -1,10 +1,12 @@
 from django.http import Http404
-from django.shortcuts import render
 from rest_framework.decorators import api_view
-from rest_framework.response import Response
+from rest_framework.generics import RetrieveUpdateAPIView
 from .models import Archaeology, Region, Items, News, Video, Picture
 from .serializers import (ArchaeologySerializers, RegionSerializers, ItemsSerializers, NewsSerializers,
-                          VideoSerializers, PictureSerializers)
+                          VideoSerializers, PictureSerializers, ArchaeologyLikeSerializer, ItemsLikeSerializer)
+from rest_framework import status
+from rest_framework.response import Response
+from django.shortcuts import get_object_or_404
 
 
 @api_view(['GET'])
@@ -23,6 +25,33 @@ def archaeology_detail(request, pk):
 
     serializer = ArchaeologySerializers(comment)
     return Response(serializer.data)
+
+
+class ArchaeologyLikeAPIView(RetrieveUpdateAPIView):
+    queryset = Archaeology.objects.all()
+    serializer_class = ArchaeologyLikeSerializer
+
+    def update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        user = request.user
+
+        if user.is_authenticated:
+            existing_like = instance.users.filter(id=user.id).exists()
+            if not existing_like:
+                instance.users.add(user)
+                instance.like += 1
+            else:
+                instance.users.remove(user)
+                instance.like -= 1
+            instance.save()
+            serializer = self.get_serializer(instance)
+            return Response(serializer.data)
+        else:
+            return Response({"error": "Foydalanuvchi avtorizatsiyadan o'tmagan"}, status=status.HTTP_401_UNAUTHORIZED)
+
+    def get_object(self):
+            pk = self.kwargs.get('pk')
+            return get_object_or_404(Archaeology, pk=pk)
 
 
 @api_view(['GET'])
@@ -59,6 +88,33 @@ def items_detail(request, pk):
 
     serializer = ItemsSerializers(comment)
     return Response(serializer.data)
+
+
+class ItemsLikeAPIView(RetrieveUpdateAPIView):
+    queryset = Items.objects.all()
+    serializer_class = ItemsLikeSerializer
+
+    def update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        user = request.user
+
+        if user.is_authenticated:
+            existing_like = instance.users.filter(id=user.id).exists()
+            if not existing_like:
+                instance.users.add(user)
+                instance.like += 1
+            else:
+                instance.users.remove(user)
+                instance.like -= 1
+            instance.save()
+            serializer = self.get_serializer(instance)
+            return Response(serializer.data)
+        else:
+            return Response({"error": "Foydalanuvchi avtorizatsiyadan o'tmagan"}, status=status.HTTP_401_UNAUTHORIZED)
+
+    def get_object(self):
+            pk = self.kwargs.get('pk')
+            return get_object_or_404(Items, pk=pk)
 
 
 @api_view(['GET'])

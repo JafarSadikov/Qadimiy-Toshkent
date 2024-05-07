@@ -1,4 +1,4 @@
-from django.contrib.auth.models import AbstractUser, Group, Permission
+from django.contrib.auth.models import AbstractUser, Group
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from phonenumber_field.modelfields import PhoneNumberField
@@ -15,6 +15,7 @@ class Role(Group):
     class Meta:
         verbose_name = _('Role')
         verbose_name_plural = _('Roles')
+
 
 class CustomUser(AbstractUser):
     class Gender(models.TextChoices):
