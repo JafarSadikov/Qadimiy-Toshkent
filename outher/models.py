@@ -26,7 +26,7 @@ class ScientistsImage(models.Model):
 class ElectronicBooks(models.Model):
     name = models.CharField(max_length=150)
     like = models.IntegerField(default=0, blank=True, null=True)
-    users = models.ManyToManyField(CustomUser, related_name='liked_kanferensiyalar', blank=True)
+    liked_users = models.ManyToManyField(CustomUser, related_name='liked_books', blank=True)
 
     def __str__(self):
         return self.name

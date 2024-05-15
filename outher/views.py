@@ -76,12 +76,12 @@ class ElectronicListLikeAPIView(RetrieveUpdateAPIView):
         user = request.user
 
         if user.is_authenticated:
-            existing_like = instance.users.filter(id=user.id).exists()
+            existing_like = instance.liked_users.filter(id=user.id).exists()
             if not existing_like:
-                instance.users.add(user)
+                instance.liked_users.add(user)
                 instance.like += 1
             else:
-                instance.users.remove(user)
+                instance.liked_users.remove(user)
                 instance.like -= 1
             instance.save()
             serializer = self.get_serializer(instance)
