@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'ckeditor',
+    'modeltranslation',
 
     
     
@@ -173,16 +174,15 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
-LANGUAGE_CODE = 'en'
-#
-# LANGUAGES = (
-#     ('ru', _('Russian')),
-#     ('uz', _('Uzbek')),
-#     ('en', _('English')),
-# )
-#
-# TIME_ZONE = 'Asia/Tashkent'
+LANGUAGE_CODE = 'uz'
 
+LANGUAGES = (
+    ('ru', _('Russian')),
+    ('uz', _('Uzbek')),
+    ('en', _('English')),
+)
+
+TIME_ZONE = 'Asia/Tashkent'
 USE_I18N = True
 
 USE_TZ = True

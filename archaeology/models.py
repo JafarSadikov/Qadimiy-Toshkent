@@ -4,9 +4,6 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 
-# from ckeditor.fields import RichTextField
-
-
 class Region(models.Model):
     title = models.CharField(max_length=60)
     longitude = models.FloatField()
@@ -25,8 +22,10 @@ class Archaeology(models.Model):
     context = RichTextField(blank=True, null=True)
     like = models.IntegerField(default=0, blank=True, null=True)
     region = models.ForeignKey(Region, on_delete=models.CASCADE, related_name='region')
-    password_image = models.FileField()
+    password_image = models.FileField(upload_to='image', blank=True, null=True)
+    downloads = models.IntegerField(default=0, blank=True, null=True)
     users = models.ManyToManyField(User, related_name='liked_kanferensiyalar', blank=True)
+    view_count = models.PositiveIntegerField(default=0, blank=True, null=True)
     create = models.DateTimeField(auto_now_add=True)
     update = models.DateTimeField(auto_now=True)
 
@@ -57,7 +56,9 @@ class Items(models.Model):
     context = RichTextField(blank=True, null=True)
     like = models.IntegerField(default=0, blank=True, null=True)
     users = models.ManyToManyField(User, related_name='like_kanferensiyalar', blank=True)
-    password_image = models.FileField()
+    password_image = models.FileField(upload_to='images', blank=True, null=True)
+    downloads = models.IntegerField(default=0, blank=True, null=True)
+    view_count = models.PositiveIntegerField(default=0, blank=True, null=True)
     create = models.DateTimeField(auto_now_add=True)
     update = models.DateTimeField(auto_now=True)
 
