@@ -4,18 +4,6 @@ from modeltranslation.translator import TranslationOptions
 from .models import Archaeology, Region, Items, News, Video, Picture, ArchaeologyPicture, ArchaeologyVideo, \
     NewsVideo, NewsPicture, SubVideo, SubPicture
 
-#
-# class Archaeology_Video(admin.TabularInline):
-#     models = ArchaeologyVideo
-#
-#
-# class archaeology_Picture(admin.TabularInline):
-#     models = ArchaeologyPicture
-#
-#
-# class archaeologyAdmin(admin.ModelAdmin):
-#     inlines = [archaeology_Picture, Archaeology_Video]
-
 
 class NewsVideoTabularInline(admin.TabularInline):
     model = NewsVideo
@@ -27,6 +15,7 @@ class NewsPictureTabularInline(admin.TabularInline):
 
 class NewsAdmin(admin.ModelAdmin):
     inlines = [NewsVideoTabularInline, NewsPictureTabularInline]
+    fields = ['title_en', 'title_ru', 'descriptions_en', 'descriptions_ru']
 
     class Meta:
         model = News

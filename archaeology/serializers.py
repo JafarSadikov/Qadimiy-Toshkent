@@ -23,7 +23,7 @@ class ItemsSerializers(serializers.ModelSerializer):
 class NewsSerializers(serializers.ModelSerializer):
     class Meta:
         model = News
-        fields = ('id', 'title', 'descriptions', 'create', 'update')
+        fields = ('id', 'title', 'title_ru', 'title_en', 'descriptions', 'descriptions_ru', 'descriptions_en', 'create', 'update')
 
 
 class VideoSerializers(serializers.ModelSerializer):

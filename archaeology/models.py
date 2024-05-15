@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 
 
@@ -62,6 +63,9 @@ class News(models.Model):
     descriptions = models.TextField()
     create = models.DateTimeField(auto_now_add=True)
     update = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.title
 
 
 class NewsVideo(models.Model):
