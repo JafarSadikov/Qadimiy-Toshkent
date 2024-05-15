@@ -1,3 +1,4 @@
+
 """
 Django settings for Conf project.
 
@@ -34,7 +35,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'jazzmin',
-    
+
     #local
     'django.contrib.admin',
     'django.contrib.auth',
@@ -48,6 +49,8 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'modeltranslation',
 
+
+
     'archaeology.apps.ArchaeologyConfig',
     
     # django apps
@@ -55,7 +58,6 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'corsheaders',
-
     'ckeditor',
 
     
@@ -77,7 +79,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 'allauth.account.middleware.AccountMiddleware',  # Add this line if missing
     'allauth.account.middleware.AccountMiddleware',  # Add this line if missing
     'corsheaders.middleware.CorsMiddleware',
 

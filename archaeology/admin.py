@@ -2,7 +2,7 @@ from django.contrib import admin
 from modeltranslation.translator import TranslationOptions
 
 from .models import Archaeology, Region, Items, News, Video, Picture, ArchaeologyPicture, ArchaeologyVideo, \
-    NewsVideo, NewsPicture, SubVideo, SubPicture
+    NewsVideo, NewsPicture, SubVideo, SubPicture, ItemsVideo, ItemsPicture
 
 
 class NewsVideoTabularInline(admin.TabularInline):
@@ -19,6 +19,23 @@ class NewsAdmin(admin.ModelAdmin):
 
     class Meta:
         model = News
+
+
+class items_Video(admin.TabularInline):
+    model = ItemsVideo
+    fields = ['title_uz', 'title_ru', 'title_en', 'link', 'video']
+
+
+class items_Picture(admin.TabularInline):
+    model = ItemsPicture
+    fields = ['title_uz', 'title_ru', 'title_en', 'link', 'image']
+
+
+@admin.register(Items)
+class itemsAdmin(admin.ModelAdmin):
+    list_display = ('title', 'context',)
+    inlines = [items_Video, items_Picture]
+    fields = ('context_uz', 'context_en', 'context_ru', 'title_uz', 'title_ru', 'title_en', 'password_image',)
 
 
 class NewsTranslationOptions(TranslationOptions):
@@ -63,9 +80,7 @@ class PictureTranslationOptions(TranslationOptions):
     fields = ('title',)
 
 
-admin.site.register(Archaeology)
 admin.site.register(Region)
-admin.site.register(Items)
 admin.site.register(News, NewsAdmin)
 admin.site.register(Video, VideoAdmin)
 admin.site.register(Picture, PictureAdmin)

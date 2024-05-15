@@ -36,24 +36,24 @@ class ArchaeologyTranslationOptions(TranslationOptions):
 
 @register(ArchaeologyVideo)
 class ArchaeologyVideoTranslationOptions(TranslationOptions):
-    fields = ('title', )
+    fields = ('title',)
 
 
 @register(ArchaeologyPicture)
 class ArchaeologyPictureTranslationOptions(TranslationOptions):
-    fields = ('title', )
+    fields = ('title',)
 
 
 @register(Items)
 class ItemsTranslationOptions(TranslationOptions):
-    fields = ('title','context', )
+    fields = ('title', 'context',)
 
 
 @register(ItemsVideo)
 class ItemsVideoTranslationOptions(TranslationOptions):
-    fields = ('title', )
+    fields = ('title',)
 
 
 @register(ItemsPicture)
 class ItemsPictureTranslationOptions(TranslationOptions):
-    fields = ('title', )
+    fields = ('title',)
