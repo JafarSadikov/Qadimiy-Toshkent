@@ -11,10 +11,7 @@ urlpatterns = [
     path('outher/api/', include('outher.urls')),
     path('accounts/', include('allauth.urls')),
     path('', include('archaeology.urls')),
-<<<<<<< HEAD
-=======
 
->>>>>>> a07ef7f6c18f9ed3f310faac2ec1d699c3185847
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
