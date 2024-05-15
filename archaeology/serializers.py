@@ -11,11 +11,9 @@ class RegionSerializers(serializers.ModelSerializer):
 class ArchaeologySerializers(serializers.ModelSerializer):
     # video = serializers.SerializerMethodField()
 
-
-
     class Meta:
         model = Archaeology
-        fields = ['id', 'title', 'context', 'region', 'downloads','password_image','view_count', 'create', 'update']
+        fields = ['id', 'title', 'context', 'region', 'downloads', 'password_image', 'view_count', 'create', 'update']
 
     # def get_video(self, obj, password_image):
     #     images_field = obj.password_image
@@ -31,9 +29,7 @@ class ArchaeologySerializers(serializers.ModelSerializer):
 class ArchaeologyLikeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Archaeology
-        fields = ['id', 'like',]
-
-
+        fields = ['id', 'like', ]
 
 
 class ItemsSerializers(serializers.ModelSerializer):
@@ -45,7 +41,7 @@ class ItemsSerializers(serializers.ModelSerializer):
 class ItemsLikeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Items
-        fields = ['id', 'like',]
+        fields = ['id', 'like', ]
 
 
 class NewsSerializers(serializers.ModelSerializer):

@@ -1,6 +1,5 @@
-<<<<<<< HEAD
 
-=======
+
 """
 Django settings for Conf project.
 
@@ -13,7 +12,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 import os
->>>>>>> acfa9e0dcbcbd47703b98b28a0b6848650f56fc9
 from pathlib import Path
 from django.utils.translation import gettext_lazy as _
 
@@ -37,8 +35,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'jazzmin',
-    
     #local
     'django.contrib.admin',
     'django.contrib.auth',
@@ -46,15 +42,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-<<<<<<< HEAD
 
     # django apps
     'jazzmin',
-    'rest_framework',
-    'rest_framework_simplejwt',
-    'modeltranslation',
 
-=======
+
     'archaeology.apps.ArchaeologyConfig',
     
     # django apps
@@ -70,7 +62,6 @@ INSTALLED_APPS = [
     
     
     
->>>>>>> acfa9e0dcbcbd47703b98b28a0b6848650f56fc9
     # my apps
     'users.apps.UsersConfig',
     'outher.apps.OutherConfig',
@@ -86,13 +77,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-<<<<<<< HEAD
+
     # 'allauth.account.middleware.AccountMiddleware',  # Add this line if missing
-=======
+
     'allauth.account.middleware.AccountMiddleware',  # Add this line if missing
     'corsheaders.middleware.CorsMiddleware',
 
->>>>>>> acfa9e0dcbcbd47703b98b28a0b6848650f56fc9
 ]
 
 

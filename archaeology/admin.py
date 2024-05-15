@@ -1,8 +1,8 @@
 from django.contrib import admin
 from modeltranslation.admin import TranslationAdmin
-from modeltranslation.translator import register,TranslationOptions
+from modeltranslation.translator import register, TranslationOptions
 
-from .models import Archaeology, Region, Items, News, Video, Picture, ArchaeologyPicture, ArchaeologyVideo, ItemsVideo,\
+from .models import Archaeology, Region, Items, News, Video, Picture, ArchaeologyPicture, ArchaeologyVideo, ItemsVideo, \
     ItemsPicture
 
 
@@ -21,7 +21,7 @@ class itemsAdmin(admin.ModelAdmin):
     list_display = ('title', 'context',)
     inlines = [items_Video, items_Picture]
     fields = ('context_uz', 'context_en', 'context_ru', 'title_uz', 'title_ru', 'title_en', 'password_image',
-               )
+              )
 
 
 class ArchaeologyVideoInline(admin.TabularInline):

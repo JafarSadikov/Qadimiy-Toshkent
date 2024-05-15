@@ -3,7 +3,7 @@ from rest_framework.decorators import api_view
 from rest_framework.generics import RetrieveUpdateAPIView
 from .models import Archaeology, Region, Items, News, Video, Picture
 from .serializers import (ArchaeologySerializers, RegionSerializers, ItemsSerializers, NewsSerializers,
-    VideoSerializers, PictureSerializers, ArchaeologyLikeSerializer, ItemsLikeSerializer)
+                          VideoSerializers, PictureSerializers, ArchaeologyLikeSerializer, ItemsLikeSerializer)
 
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
@@ -62,8 +62,8 @@ class ArchaeologyLikeAPIView(RetrieveUpdateAPIView):
             return Response({"error": "Foydalanuvchi avtorizatsiyadan o'tmagan"}, status=status.HTTP_401_UNAUTHORIZED)
 
     def get_object(self):
-            pk = self.kwargs.get('pk')
-            return get_object_or_404(Archaeology, pk=pk)
+        pk = self.kwargs.get('pk')
+        return get_object_or_404(Archaeology, pk=pk)
 
 
 @api_view(['GET'])
@@ -135,8 +135,8 @@ class ItemsLikeAPIView(RetrieveUpdateAPIView):
             return Response({"error": "Foydalanuvchi avtorizatsiyadan o'tmagan"}, status=status.HTTP_401_UNAUTHORIZED)
 
     def get_object(self):
-            pk = self.kwargs.get('pk')
-            return get_object_or_404(Items, pk=pk)
+        pk = self.kwargs.get('pk')
+        return get_object_or_404(Items, pk=pk)
 
 
 @api_view(['GET'])
