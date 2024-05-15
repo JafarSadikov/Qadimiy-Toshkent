@@ -4,7 +4,7 @@ from django.urls import path
 from .down import File_downloadView, File_download
 from .views import (region_list, region_detail, archaeology_list, archaeology_detail, items_list,
                     items_detail, news_list, news_detail, video_detail, video_list, picture_list, picture_detail,
-                    ArchaeologyLikeAPIView, ItemsLikeAPIView )
+                    ArchaeologyLikeAPIView, ItemsLikeAPIView)
 
 urlpatterns = [
 
