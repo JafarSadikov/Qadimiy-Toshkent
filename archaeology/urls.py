@@ -1,4 +1,3 @@
-
 from django.urls import path
 
 from .down import File_downloadView, File_download
@@ -20,8 +19,6 @@ urlpatterns = [
     path('items/<int:pk>/', items_detail),
     path('items/<int:pk>/like', ItemsLikeAPIView.as_view()),
     path('items/downland/<int:pk>/', File_download.as_view()),
-
-
 
     path('news', news_list),
     path('news/<int:pk>/', news_detail),

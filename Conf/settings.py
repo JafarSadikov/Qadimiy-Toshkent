@@ -35,23 +35,12 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'jazzmin',
-    
-    #local
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-
-    # django apps
-
-
-    'rest_framework_simplejwt',
-
-
-
     'archaeology.apps.ArchaeologyConfig',
     
     # django apps
@@ -63,7 +52,6 @@ INSTALLED_APPS = [
     'corsheaders',
     'ckeditor',
     'modeltranslation',
-
     # my apps
     'users.apps.UsersConfig',
     'outher.apps.OutherConfig',
@@ -85,8 +73,9 @@ MIDDLEWARE = [
     'allauth.account.middleware.AccountMiddleware',  # Add this line if missing
     'corsheaders.middleware.CorsMiddleware',
 
-
 ]
+
+
 
 GOOGLE_REDIRECT_URL = 'https://example.com/accounts/google/login/callback/'  # or your actual callback URL
 
