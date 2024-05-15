@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
+import os
 from pathlib import Path
 from django.utils.translation import gettext_lazy as _
 
@@ -41,19 +42,29 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # django apps
+    'rest_framework',
+    'rest_framework_simplejwt',
+    'modeltranslation',
+
     'archaeology.apps.ArchaeologyConfig',
     
     # django apps
 
     'allauth',
     'allauth.account',
-    'rest_framework_simplejwt',
-    'rest_framework',
     'corsheaders',
-    "modeltranslation",
 
+    'ckeditor',
+
+    
+    
+    
     # my apps
     'users.apps.UsersConfig',
+    'outher.apps.OutherConfig',
+
 ]
 
 MIDDLEWARE = [
@@ -66,6 +77,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 'allauth.account.middleware.AccountMiddleware',  # Add this line if missing
     'allauth.account.middleware.AccountMiddleware',  # Add this line if missing
     'corsheaders.middleware.CorsMiddleware',
 
@@ -181,17 +193,17 @@ LOCALE_PATHS = [
     BASE_DIR / 'locale/',
 ]
 
-TIME_ZONE = 'UTC'
 
+TIME_ZONE = 'Asia/Tashkent'
 USE_I18N = True
 
 USE_TZ = True
 
 
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -263,4 +275,18 @@ CROS_ORIGIN_ALLOW_ALL = True
 
 #? pip install phonenumbers
 #? pip install django-phonenumber-field  KERAK BOLIB QOLADI!
+
+
+STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+
+    },
+}
 

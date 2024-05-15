@@ -15,14 +15,14 @@ class NewsPictureTabularInline(admin.TabularInline):
 
 class NewsAdmin(admin.ModelAdmin):
     inlines = [NewsVideoTabularInline, NewsPictureTabularInline]
-    fields = ['title_en', 'title_ru', 'descriptions_en', 'descriptions_ru']
+    fields = ['title_en', 'title_ru', 'context_en', 'context_ru']
 
     class Meta:
         model = News
 
 
 class NewsTranslationOptions(TranslationOptions):
-    fields = ('title', 'descriptions')
+    fields = ('title', 'context')
 
 
 class NewsVideoTranslationOptions(TranslationOptions):

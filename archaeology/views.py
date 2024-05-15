@@ -3,9 +3,13 @@ from rest_framework.decorators import api_view
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 
+from rest_framework.generics import RetrieveUpdateAPIView
 from .models import Archaeology, Region, Items, News, Video, Picture
 from .serializers import (ArchaeologySerializers, RegionSerializers, ItemsSerializers, NewsSerializers,
-                          VideoSerializers, PictureSerializers)
+    VideoSerializers, PictureSerializers, ArchaeologyLikeSerializer, ItemsLikeSerializer)
+
+from django.shortcuts import get_object_or_404
+from rest_framework import status
 
 
 @api_view(['GET'])
@@ -20,20 +24,57 @@ def paginated_news_list(request):
 
 @api_view(['GET'])
 def archaeology_list(request):
+    paginator = PageNumberPagination()
+    paginator.page_size = 1
     comments = Archaeology.objects.all().order_by("id")
-    serializer = ArchaeologySerializers(comments, many=True)
-    return Response(serializer.data)
+    result_page = paginator.paginate_queryset(comments, request)
+    serializer = ArchaeologySerializers(result_page, many=True)
+    serializer_url = serializer.data
+    for obj_url in serializer_url:
+        if obj_url.get('password_image'):
+            obj_url['password_image'] = request.build_absolute_uri(obj_url['password_image'])
+    return paginator.get_paginated_response(serializer_url)
 
 
 @api_view(['GET'])
 def archaeology_detail(request, pk):
     try:
-        comment = Archaeology.objects.get(pk=pk)
+        archaeology = Archaeology.objects.get(pk=pk)
     except Archaeology.DoesNotExist:
-        raise Http404
+        return Response(status=status.HTTP_404_NOT_FOUND)
 
-    serializer = ArchaeologySerializers(comment)
+    archaeology.view_count += 1
+    archaeology.save()
+
+    serializer = ArchaeologySerializers(archaeology, context={'request': request})
     return Response(serializer.data)
+
+
+class ArchaeologyLikeAPIView(RetrieveUpdateAPIView):
+    queryset = Archaeology.objects.all()
+    serializer_class = ArchaeologyLikeSerializer
+
+    def update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        user = request.user
+
+        if user.is_authenticated:
+            existing_like = instance.users.filter(id=user.id).exists()
+            if not existing_like:
+                instance.users.add(user)
+                instance.like += 1
+            else:
+                instance.users.remove(user)
+                instance.like -= 1
+            instance.save()
+            serializer = self.get_serializer(instance)
+            return Response(serializer.data)
+        else:
+            return Response({"error": "Foydalanuvchi avtorizatsiyadan o'tmagan"}, status=status.HTTP_401_UNAUTHORIZED)
+
+    def get_object(self):
+            pk = self.kwargs.get('pk')
+            return get_object_or_404(Archaeology, pk=pk)
 
 
 @api_view(['GET'])
@@ -56,20 +97,57 @@ def region_detail(request, pk):
 
 @api_view(['GET'])
 def items_list(request):
+    paginator = PageNumberPagination()
+    paginator.page_size = 1
     comments = Items.objects.all().order_by("id")
-    serializer = ItemsSerializers(comments, many=True)
-    return Response(serializer.data)
+    result_page = paginator.paginate_queryset(comments, request)
+    serializer = ItemsSerializers(result_page, many=True)
+    serializer_url = serializer.data
+    for obj_url in serializer_url:
+        if obj_url.get('password_image'):
+            obj_url['password_image'] = request.build_absolute_uri(obj_url['password_image'])
+    return paginator.get_paginated_response(serializer_url)
 
 
 @api_view(['GET'])
 def items_detail(request, pk):
     try:
-        comment = Items.objects.get(pk=pk)
+        items = Items.objects.get(pk=pk)
     except Items.DoesNotExist:
-        raise Http404
+        return Response(status=status.HTTP_404_NOT_FOUND)
 
-    serializer = ItemsSerializers(comment)
+    items.view_count += 1
+    items.save()
+
+    serializer = ItemsSerializers(items, context={'request': request})
     return Response(serializer.data)
+
+
+class ItemsLikeAPIView(RetrieveUpdateAPIView):
+    queryset = Items.objects.all()
+    serializer_class = ItemsLikeSerializer
+
+    def update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        user = request.user
+
+        if user.is_authenticated:
+            existing_like = instance.users.filter(id=user.id).exists()
+            if not existing_like:
+                instance.users.add(user)
+                instance.like += 1
+            else:
+                instance.users.remove(user)
+                instance.like -= 1
+            instance.save()
+            serializer = self.get_serializer(instance)
+            return Response(serializer.data)
+        else:
+            return Response({"error": "Foydalanuvchi avtorizatsiyadan o'tmagan"}, status=status.HTTP_401_UNAUTHORIZED)
+
+    def get_object(self):
+            pk = self.kwargs.get('pk')
+            return get_object_or_404(Items, pk=pk)
 
 
 @api_view(['GET'])
@@ -124,5 +202,3 @@ def picture_detail(request, pk):
 
     serializer = PictureSerializers(comment)
     return Response(serializer.data)
-
-
