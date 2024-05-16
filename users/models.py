@@ -54,6 +54,7 @@ class CustomUser(AbstractUser):
     # bmi = models.FloatField(_('bmi'), blank=True, null=True)
     image = models.ImageField(upload_to='users/', blank=True, null=True)
 
+
     USERNAME_FIELD = 'phone'
     objects = UserManager()
 

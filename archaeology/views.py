@@ -1,14 +1,25 @@
 from django.http import Http404
 from rest_framework.decorators import api_view
+from rest_framework.pagination import PageNumberPagination
+from rest_framework.response import Response
+
 from rest_framework.generics import RetrieveUpdateAPIView
 from .models import Archaeology, Region, Items, News, Video, Picture
 from .serializers import (ArchaeologySerializers, RegionSerializers, ItemsSerializers, NewsSerializers,
                           VideoSerializers, PictureSerializers, ArchaeologyLikeSerializer, ItemsLikeSerializer)
 
-from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
-from rest_framework.pagination import PageNumberPagination
 from rest_framework import status
+
+
+@api_view(['GET'])
+def paginated_news_list(request):
+    paginator = PageNumberPagination()
+    paginator.page_size = 1
+    comments = News.objects.all().order_by("id")
+    result_page = paginator.paginate_queryset(comments, request)
+    serializer = NewsSerializers(result_page, many=True)
+    return paginator.get_paginated_response(serializer.data)
 
 
 @api_view(['GET'])

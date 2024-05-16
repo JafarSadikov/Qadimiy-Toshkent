@@ -1,5 +1,4 @@
 
-
 """
 Django settings for Conf project.
 
@@ -47,6 +46,11 @@ INSTALLED_APPS = [
 
     # django apps
 
+    'rest_framework',
+    'rest_framework_simplejwt',
+    'modeltranslation',
+
+
 
     'archaeology.apps.ArchaeologyConfig',
     
@@ -54,11 +58,8 @@ INSTALLED_APPS = [
 
     'allauth',
     'allauth.account',
-    'rest_framework_simplejwt',
-    'rest_framework',
     'corsheaders',
     'ckeditor',
-    'modeltranslation',
 
     
     
@@ -73,14 +74,12 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
-    # 'allauth.account.middleware.AccountMiddleware',  # Add this line if missing
-
     'allauth.account.middleware.AccountMiddleware',  # Add this line if missing
     'corsheaders.middleware.CorsMiddleware',
 
@@ -185,13 +184,17 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
-LANGUAGE_CODE = 'uz'
+LANGUAGE_CODE = 'en'
 
 LANGUAGES = (
-    ('ru', _('Russian')),
-    ('uz', _('Uzbek')),
     ('en', _('English')),
+    ('ru', _('Russian')),
 )
+
+LOCALE_PATHS = [
+    BASE_DIR / 'locale/',
+]
+
 
 TIME_ZONE = 'Asia/Tashkent'
 USE_I18N = True
@@ -203,7 +206,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -270,15 +272,6 @@ JAZZMIN_UI_TWEAKS = {
 AUTH_USER_MODEL = "users.CustomUser"
 
 CROS_ORIGIN_ALLOW_ALL = True
-
-LANGUAGES = [
-    ('uz', ('Uzbek')),
-    ('en', ('English')),
-    ('ru', ('Russian')),
-]
-
-
-MODELTRANSLATION_DEFAULT_LANGUAGE = 'uz'
 
 
 
