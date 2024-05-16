@@ -35,23 +35,28 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'jazzmin',
+
+    #local
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # django apps
+    'rest_framework',
+    'rest_framework_simplejwt',
+    'modeltranslation',
     'archaeology.apps.ArchaeologyConfig',
     
     # django apps
-
     'allauth',
     'allauth.account',
-    'rest_framework_simplejwt',
-    'rest_framework',
     'corsheaders',
     'ckeditor',
-    'modeltranslation',
+
     # my apps
     'users.apps.UsersConfig',
     'outher.apps.OutherConfig',
@@ -62,14 +67,12 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
-    # 'allauth.account.middleware.AccountMiddleware',  # Add this line if missing
-
     'allauth.account.middleware.AccountMiddleware',  # Add this line if missing
     'corsheaders.middleware.CorsMiddleware',
 
@@ -184,6 +187,7 @@ LANGUAGES = (
 )
 
 TIME_ZONE = 'Asia/Tashkent'
+
 USE_I18N = True
 
 USE_TZ = True
@@ -193,7 +197,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -260,6 +263,13 @@ JAZZMIN_UI_TWEAKS = {
 AUTH_USER_MODEL = "users.CustomUser"
 
 CROS_ORIGIN_ALLOW_ALL = True
+
+
+
+#? pip install phonenumbers
+#? pip install django-phonenumber-field  KERAK BOLIB QOLADI!
+
+
 
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
