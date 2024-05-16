@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # django apps
+
     'rest_framework',
     'rest_framework_simplejwt',
     'modeltranslation',

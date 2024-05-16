@@ -7,7 +7,7 @@ from .views import (region_list, region_detail, archaeology_list, archaeology_de
 
 urlpatterns = [
 
-    path('region', region_list),
+    path('region/', region_list),
     path('region/<int:pk>/', region_detail),
 
     path('arxiv/', archaeology_list),
@@ -23,9 +23,9 @@ urlpatterns = [
     path('news', news_list),
     path('news/<int:pk>/', news_detail),
 
-    path('video', video_list),
+    path('video/', video_list),
     path('video/<int:pk>/', video_detail),
 
-    path('picture', picture_list),
+    path('picture/', picture_list),
     path('picture/<int:pk>/', picture_detail),
 ]
