@@ -14,8 +14,6 @@ class ArchaeologySerializers(serializers.ModelSerializer):
         fields = ['id', 'title', 'context', 'region', 'downloads', 'password_image', 'view_count', 'create', 'update']
 
 
-
-
 class ArchaeologyLikeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Archaeology

@@ -10,25 +10,35 @@ from .serializers import (ArchaeologySerializers, RegionSerializers, ItemsSerial
 
 from django.shortcuts import get_object_or_404
 from rest_framework import status
+from .filters import CategoryFilter
 
 
 @api_view(['GET'])
-def paginated_news_list(request):
-    paginator = PageNumberPagination()
-    paginator.page_size = 1
-    comments = News.objects.all().order_by("id")
-    result_page = paginator.paginate_queryset(comments, request)
-    serializer = NewsSerializers(result_page, many=True)
-    return paginator.get_paginated_response(serializer.data)
+def region_list(request):
+    comments = Region.objects.all().order_by("id")
+    serializer = RegionSerializers(comments, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def region_detail(request, pk):
+    try:
+        comment = Region.objects.get(pk=pk)
+    except Archaeology.DoesNotExist:
+        raise Http404
+
+    serializer = RegionSerializers(comment)
+    return Response(serializer.data)
 
 
 @api_view(['GET'])
 def archaeology_list(request):
     paginator = PageNumberPagination()
-    paginator.page_size = 1
+    paginator.page_size = 10
     comments = Archaeology.objects.all().order_by("id")
-    result_page = paginator.paginate_queryset(comments, request)
-    serializer = ArchaeologySerializers(result_page, many=True)
+    user_filter = CategoryFilter(request.GET, queryset=comments)
+    result_page = paginator.paginate_queryset(user_filter.qs, request)
+    serializer = ArchaeologySerializers(result_page, many=True, context={'request': request})
     serializer_url = serializer.data
     for obj_url in serializer_url:
         if obj_url.get('password_image'):
@@ -78,30 +88,13 @@ class ArchaeologyLikeAPIView(RetrieveUpdateAPIView):
 
 
 @api_view(['GET'])
-def region_list(request):
-    comments = Region.objects.all().order_by("id")
-    serializer = RegionSerializers(comments, many=True)
-    return Response(serializer.data)
-
-
-@api_view(['GET'])
-def region_detail(request, pk):
-    try:
-        comment = Region.objects.get(pk=pk)
-    except Archaeology.DoesNotExist:
-        raise Http404
-
-    serializer = RegionSerializers(comment)
-    return Response(serializer.data)
-
-
-@api_view(['GET'])
 def items_list(request):
     paginator = PageNumberPagination()
     paginator.page_size = 1
     comments = Items.objects.all().order_by("id")
-    result_page = paginator.paginate_queryset(comments, request)
-    serializer = ItemsSerializers(result_page, many=True)
+    user_filter = CategoryFilter(request.GET, queryset=comments)
+    result_page = paginator.paginate_queryset(user_filter.qs, request)
+    serializer = ItemsSerializers(result_page, many=True, context={'request': request})
     serializer_url = serializer.data
     for obj_url in serializer_url:
         if obj_url.get('password_image'):

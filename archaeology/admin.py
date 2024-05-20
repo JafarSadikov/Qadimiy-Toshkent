@@ -51,7 +51,7 @@ class Archaeology_Picture(admin.TabularInline):
 class ArchaeologyAdmin(admin.ModelAdmin):
     list_display = ('title', 'context',)
     inlines = [Archaeology_Video, Archaeology_Picture]
-    fields = ('context_uz', 'context_en', 'context_ru', 'title_uz', 'title_ru', 'title_en', 'password_image',)
+    fields = ('context_uz', 'context_en', 'context_ru', 'title_uz', 'title_ru', 'title_en', 'password_image', 'region')
 
 
 class SubVideoTabularInline(admin.TabularInline):

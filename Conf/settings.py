@@ -36,8 +36,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'jazzmin',
 
-    #local
-
+     # lacol
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -57,6 +56,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'corsheaders',
     'ckeditor',
+    'django_filters',
 
     # my apps
     'users.apps.UsersConfig',
@@ -80,9 +80,7 @@ MIDDLEWARE = [
 ]
 
 
-
 GOOGLE_REDIRECT_URL = 'https://example.com/accounts/google/login/callback/'  # or your actual callback URL
-
 REST_AUTH_REGISTER_SERIALIZERS = {
     'LOGIN_SERIALIZER': 'path.to.your.custom.LoginSerializer',
     'REGISTER_SERIALIZER': 'path.to.your.custom.RegisterSerializer',
@@ -194,11 +192,8 @@ USE_I18N = True
 USE_TZ = True
 
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
-
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
@@ -265,12 +260,8 @@ AUTH_USER_MODEL = "users.CustomUser"
 
 CROS_ORIGIN_ALLOW_ALL = True
 
-
-
 #? pip install phonenumbers
 #? pip install django-phonenumber-field  KERAK BOLIB QOLADI!
-
-
 
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
@@ -284,4 +275,3 @@ CKEDITOR_CONFIGS = {
 
     },
 }
-
