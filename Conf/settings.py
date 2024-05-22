@@ -48,13 +48,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # django apps
-
     'rest_framework',
     'rest_framework_simplejwt',
     'modeltranslation',
-    'archaeology.apps.ArchaeologyConfig',
-    
-    # django apps
     'allauth',
     'allauth.account',
     'corsheaders',
@@ -64,6 +60,8 @@ INSTALLED_APPS = [
     # my apps
     'users.apps.UsersConfig',
     'outher.apps.OutherConfig',
+    'archaeology.apps.ArchaeologyConfig',
+    
 
 ]
 
