@@ -1,3 +1,4 @@
+
 """
 Django settings for Conf project.
 
@@ -9,10 +10,11 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
+import os
 from pathlib import Path
-#! from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
-#! from allauth.socialaccount.providers.oauth2.client import OAuth2Client
-#! from dj_rest_auth.registration.views import SocialLoginView
+
+from django.utils.translation import gettext_lazy as _
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -29,36 +31,40 @@ SECRET_KEY = 'django-insecure-p2t9^r$0v!szpa5qae9ck-uwkme=k7!e)@c_o!%b2t^8*38b6h
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
 
 INSTALLED_APPS = [
     'jazzmin',
-    
-    #local
+
+     # lacol
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # django apps
+
+    'rest_framework',
+    'rest_framework_simplejwt',
+    'modeltranslation',
+    'archaeology.apps.ArchaeologyConfig',
     
     # django apps
-    "allauth.socialaccount",
-    "allauth.socialaccount.providers.google",
     'allauth',
     'allauth.account',
-    'rest_framework_simplejwt',
-    'rest_framework',
     'corsheaders',
+    'ckeditor',
+    'django_filters',
 
-    
-    
-    
     # my apps
     'users.apps.UsersConfig',
+    'outher.apps.OutherConfig',
+
 ]
 
 MIDDLEWARE = [
@@ -66,6 +72,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -77,7 +84,6 @@ MIDDLEWARE = [
 
 
 GOOGLE_REDIRECT_URL = 'https://example.com/accounts/google/login/callback/'  # or your actual callback URL
-
 REST_AUTH_REGISTER_SERIALIZERS = {
     'LOGIN_SERIALIZER': 'path.to.your.custom.LoginSerializer',
     'REGISTER_SERIALIZER': 'path.to.your.custom.RegisterSerializer',
@@ -95,12 +101,6 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 
 SOCIALACCOUNT_ADAPTER = 'allauth.socialaccount.adapter.DefaultSocialAccountAdapter'
-
-#! Custom Google Login View
-# class GoogleLoginView(SocialLoginView):
-#     adapter_class = GoogleOAuth2Adapter
-#     callback_url = GOOGLE_REDIRECT_URL
-#     client_class = OAuth2Client
 
 
 ROOT_URLCONF = 'Conf.urls'
@@ -179,9 +179,15 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'uz'
 
-TIME_ZONE = 'UTC'
+LANGUAGES = (
+    ('ru', _('Russian')),
+    ('uz', _('Uzbek')),
+    ('en', _('English')),
+)
+
+TIME_ZONE = 'Asia/Tashkent'
 
 USE_I18N = True
 
@@ -190,9 +196,6 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
-
-STATIC_URL = 'static/'
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
@@ -259,8 +262,18 @@ AUTH_USER_MODEL = "users.CustomUser"
 
 CROS_ORIGIN_ALLOW_ALL = True
 
-
-
 #? pip install phonenumbers
 #? pip install django-phonenumber-field  KERAK BOLIB QOLADI!
 
+STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+
+    },
+}
